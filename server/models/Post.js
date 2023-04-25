@@ -5,8 +5,9 @@ const { DateTime } = require("luxon");
 const PostSchema = new Schema({
     title: { type: String, required: true },
     body: { type: String, required: true }, 
+    thumbnail: { type: String }, 
     timeStamp: { type: Date, default: Date.now },
-    comments: { type: array, }
+    comments: { type: array, default: [] }
 })
 
 PostSchema.virtual("timeStamp_formatted").get(function() {
