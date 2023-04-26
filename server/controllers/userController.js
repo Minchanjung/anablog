@@ -2,19 +2,31 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const passport = require("passport")
 require("dotenv").config();
 
-exports.get_users = (req, res) => {
-
+exports.get_users = async (req, res, next) => {
+    try {
+        const user = await User.find().sort("username", ascending).exec();
+        res.json(user);
+    } catch(err) {
+        res.json(err);
+    }
 }
 
-exports.get_single_user = (req, res) => {
-
+exports.get_single_user = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).exec()
+        res.json(user);
+    } catch (err) {
+        res.json(err);
+    }
 }
 
-exports.log_in = (req, res) => {
-
-}
+exports.log_in = passport.authenticate("local", {
+    successRedirect: "/", 
+    failureRedirect: "/"
+})
 
 exports.sign_up = (req, res) => [
     body("username", "username must not be empty")

@@ -6,13 +6,15 @@ const postController = require("../controllers/postController");
 router.get("/", postController.get_posts);
 
 //get single post
-router.get("/:id", postController.get_single_post);
+router.get("/post/:id", postController.get_single_post);
 
 //create a post
-router.post("/create", postController.create_post);
+router.post("/post/create", postController.create_post);
 
 //put edit post
-router.put("/:id/edit", postController.edit_post);
+router.put("/post/:id/edit", postController.edit_post);
 
 //delete a post 
-router.delete("/:id/delete", postController.delete_post);
+router.delete("/post/:id/delete", postController.delete_post);
+
+module.exports = router;

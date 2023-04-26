@@ -7,7 +7,7 @@ const PostSchema = new Schema({
     body: { type: String, required: true }, 
     thumbnail: { type: String }, 
     timeStamp: { type: Date, default: Date.now },
-    comments: { type: array, default: [] }
+    comments: { type: Array, default: [] }
 })
 
 PostSchema.virtual("timeStamp_formatted").get(function() {
