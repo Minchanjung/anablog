@@ -2,6 +2,9 @@ const express = require("express");
 const passport = require("passport");
 const LocalSrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+const passportJWT = require("passport-jwt");
+const JWTStrategy = passportJWT.Strategy;
+const extractJWT = passportJWT.ExtractJwt;
 
 const User = require("../models/User");
 
@@ -25,15 +28,16 @@ passport.use(
     })
 )
 
-passport.serializeUser(function(user, done) {
-    done(null, user.id);
-})
-
-passport.deserializeUser(async function(id, done) {
-    try {
-        const user = await User.findById(id);
-        done(null, user);
-    } catch(err) {
-        done(err);
-    };
-})
+passport.use(
+    new JWTStrategy({
+        jwtFromRequest: extractJWT.fromAuthHeaderAsBearerToken, 
+        secretOrKey: process.env.SECRET, 
+    }, 
+    (jwtPayload, done) => {
+        if (Date.now > jwtPayload.expires) {
+            return done("jwt expired");
+        }
+        return done(null, jwtPayload);
+    }
+    )
+)

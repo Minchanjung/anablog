@@ -6,6 +6,7 @@ var logger = require('morgan');
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
+const session = require("express-session")
 
 const usersRouter = require('./routes/users');
 const commentRouter = require("./routes/comment");
@@ -21,6 +22,7 @@ async function main() {
     await mongoose.connect(mongoDB)
 }
 
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true })); 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());

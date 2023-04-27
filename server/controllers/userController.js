@@ -23,10 +23,29 @@ exports.get_single_user = async (req, res, next) => {
     }
 }
 
-exports.log_in = passport.authenticate("local", {
-    successRedirect: "/", 
-    failureRedirect: "/"
-})
+exports.log_in = (req, res) => {
+    passport.authenticate("local", { session: false }, (err, user) => {
+        if (err || !user) {
+            return res.status(401).json({
+                message: "incorrect username or password", 
+                user, 
+            })
+        }
+
+        jwt.sign(
+            { _id: user._id, username: user.username }, 
+            process.env.SECRET, 
+            { expiresIn: "10m" }, 
+            (err, token) => {
+                if (err) return res.status(400).json(err);
+                res.json({
+                    token: token, 
+                    user: { _id: user._id, username: user.username }
+                })
+            }
+        )
+    })
+}
 
 exports.sign_up = (req, res) => [
     body("username", "username must not be empty")
@@ -78,7 +97,19 @@ exports.sign_up = (req, res) => [
         bcrypt.hash(req.body.password, 10, (err, hash) => {
             if (err) return next(err);
 
-            User.create(
+            try {
+                const user = new User({
+                    username: req.body.username, 
+                    password: hash, 
+                });
+                user.save();
+                res.status(200).json({message: "Sign Up Successful"});
+            } catch(err) {
+                res.status(400).json({error: "new user req failed"});
+            }
+         
+
+            /*User.create(
                 { username: req.body.username, password: hash }, 
                 (err, user) => {
                     if (err) return next(err);
@@ -101,7 +132,7 @@ exports.sign_up = (req, res) => [
                         }
                     )
                 }
-            )
+            )*/
         })
 
     }
