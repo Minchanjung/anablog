@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const { DateTime } = require("luxon");
 
 const CommentSchema = new Schema({
-    caption: { type: String,  required: true }, 
+    comment: { type: String,  required: true }, 
     author: { type: Schema.Types.ObjectId, ref: "User", required: true },
     timeStamp: { type: Date, default: Date.now },
 })
