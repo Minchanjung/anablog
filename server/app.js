@@ -34,6 +34,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use("/", postRouter);
 app.use('/user', usersRouter);
-app.use("/post/comment", commentRouter);
+app.use("/post/:post_id/comment", commentRouter);
 
 module.exports = app;

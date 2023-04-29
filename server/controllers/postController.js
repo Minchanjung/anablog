@@ -3,18 +3,71 @@ const { body, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const Post = require("../models/Post");
 
+// gets all posts
 exports.get_posts = async (req, res) => {
     try {    
-        const posts = await(Post.find({}).sort({ timeStamp: descending }).exec());
+        const posts = await(Post.find({}).populate("author").sort({ timeStamp: descending }).exec());
         return res.json(posts);
     } catch (err) {
         return res.status(400).json(err);
     }
 };
 
+//gets all published posts
+exports.get_published_posts = async (req, res) => {
+    try {
+        const posts = await(Post.find({published: true}).populate("author").sort({ timeStamp: descending }).exec());
+        return res.json(posts);
+    } catch (err) {
+        return res.status(400).json(err);
+    }
+}
+
+exports.publish_post = [
+    (req, res, next) => {
+        jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+            if (err) return res.status(400).json(err);
+
+            req.authData = authData;
+            next();
+        })
+    }, 
+
+    async (req, res) => {
+        try {
+            const publishPost = await(Post.findOneAndUpdate({ _id: req.params.id }, { published: true }, { useFindAndModify: false, new: true }).populate("author").exec());
+            return res.json(publishPost);
+        } catch (err) {
+            return res.status(400).json(err);
+        }
+    }
+]
+
+
+exports.unpublish_post = [
+    (req, res, next) => {
+        jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+            if (err) return res.status(400).json(err);
+
+            req.authData = authData;
+            next();
+        })
+    }, 
+
+    async (req, res) => {
+        try {
+            const unpublishPost = await(Post.findOneAndUpdate({ _id: req.params.id }, { published: false }, { useFindAndModify: false, new: true }).populate("author").exec());
+            return res.json(unpublishPost);
+        } catch (err) {
+            return res.status(400).json(err);
+        }
+    }
+]
+
+
 exports.get_single_post = async (req, res) => {
     try {
-        const post = await(Post.findOne({ _id: req.params.id}).exec())
+        const post = await(Post.findOne({ _id: req.params.id}).populate("author").exec())
         res.json(post);
     } catch(err) {
         res.status(400).json(err);
@@ -42,6 +95,7 @@ exports.edit_post = [
                 _id: req.params.id, 
                 title: req.body.title, 
                 content: req.body.content, 
+                author: req.authData._id,
                 thumbnail: req.body.imgUrl, 
                 timeStamp: Date.now(), 
             })
@@ -98,6 +152,8 @@ exports.create_post = [
                 title: req.body.title, 
                 content: req.body.content, 
                 thumbnail: req.body.imgUrl, 
+                published: false, 
+                author: req.authData._id, 
                 timeStamp: Date.now(), 
             })
 
