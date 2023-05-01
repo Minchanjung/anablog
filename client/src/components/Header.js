@@ -13,10 +13,10 @@ const Header = (props) => {
             </div>
             <div className="authButtonsContainer">
                 <div className="logInButton">
-                    <Link to="/user/log-in">Log In</Link>
+                    <Link to="/log-in">Log In</Link>
                 </div>
                 <div className="SignUpButton">
-                    <Link to="/user/sign-up">Sign Up</Link>
+                    <Link to="/sign-up">Sign Up</Link>
                 </div>
             </div>
         </div>

@@ -6,7 +6,8 @@ var logger = require('morgan');
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
-const session = require("express-session")
+//const session = require("express-session")
+require("./config/auth");
 
 const usersRouter = require('./routes/users');
 const commentRouter = require("./routes/comment");
@@ -22,9 +23,8 @@ async function main() {
     await mongoose.connect(mongoDB)
 }
 
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true })); 
+//app.use(session({ secret: "cats", resave: false, saveUninitialized: true })); 
 app.use(passport.initialize());
-app.use(passport.session());
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -32,8 +32,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use("/", postRouter);
-app.use('/user', usersRouter);
-app.use("/post/:post_id/comment", commentRouter);
+app.use("/api/posts", postRouter);
+app.use('/api/user', usersRouter);
+app.use("/api/posts/:post_id/comment", commentRouter);
 
 module.exports = app;

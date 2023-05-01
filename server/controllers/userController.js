@@ -1,9 +1,10 @@
+require("dotenv").config();
+require("../config/auth");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 const passport = require("passport")
-require("dotenv").config();
 
 exports.get_users = async (req, res, next) => {
     try {
@@ -24,6 +25,7 @@ exports.get_single_user = async (req, res, next) => {
 }
 
 exports.log_in = (req, res) => {
+    console.log(req.body)
     passport.authenticate("local", { session: false }, (err, user) => {
         if (err || !user) {
             return res.status(401).json({
@@ -44,10 +46,10 @@ exports.log_in = (req, res) => {
                 })
             }
         )
-    })
+    })(req, res)
 }
 
-exports.sign_up = (req, res) => [
+exports.sign_up = [
     body("username", "username must not be empty")
         .trim()
         .isLength({min: 1, max: 50})

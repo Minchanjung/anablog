@@ -10,12 +10,13 @@ const Signup = (props) => {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        axios.post("/user/sign-up", {
+        axios.post("http://localhost:1234/api/user/sign-up", {
             username, 
             password, 
             confirmPassword, 
         }).then((result) => {
-            console.log(result)
+            console.log(result);
+            props.history.push("/log-in");
         }).catch((err) => {
             console.log(err)
         })

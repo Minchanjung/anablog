@@ -1,6 +1,6 @@
 const express = require("express");
 const passport = require("passport");
-const LocalSrategy = require("passport-local").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 const passportJWT = require("passport-jwt");
 const JWTStrategy = passportJWT.Strategy;
@@ -8,8 +8,12 @@ const extractJWT = passportJWT.ExtractJwt;
 
 const User = require("../models/User");
 
+console.log("running auth file now");
+
 passport.use(
-    new LocalSrategy(async(username, password, done) => {
+    new LocalStrategy(async(username, password, done) => {
+        console.log(username);
+        console.log(password);
         try {
             const user = await User.findOne({ username: username });
             if (!user) {
@@ -41,3 +45,5 @@ passport.use(
     }
     )
 )
+
+module.exports = passport;
