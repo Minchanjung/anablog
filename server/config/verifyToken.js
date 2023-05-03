@@ -7,6 +7,8 @@ const verifyToken = (req, res, next) => {
         const bearerToken = bearer[1];
 
         req.token = bearerToken;
+        console.log(req.token)
+        next()
     } else {
         res.sendStatus(403)
     }

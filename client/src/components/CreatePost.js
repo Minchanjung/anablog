@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,6 @@ const CreatePost = (props) => {
     };
 
     useEffect(() => {
-        console.log(props.user)
     }, []);
 
     const formHandler = (e) => {
@@ -33,6 +32,8 @@ const CreatePost = (props) => {
         }, headers).then((res) => {
             console.log(res);
             //navigate("/dashboard")
+        }).catch((err) => {
+            console.log(err)
         })
     }
 

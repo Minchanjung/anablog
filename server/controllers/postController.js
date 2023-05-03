@@ -90,6 +90,14 @@ exports.edit_post = [
     async (req, res) => {
         const errors = validationResult(req.body);
 
+        if (!errors.isEmpty()) {
+            try {
+                res.json({ errors: errors.array() })
+            } catch (err) {
+                next(err);
+            }
+        }
+
         try {
             const post = new Post({
                 _id: req.params.id, 
@@ -135,7 +143,6 @@ exports.create_post = [
     (req, res, next) => {
         jwt.verify(req.token, process.env.SECRET, (err, authData) => {
             if (err) return res.status(400).json(err);
-
             req.authData = authData;
             next();
         })
@@ -147,7 +154,17 @@ exports.create_post = [
     async (req, res) => {
         const errors = validationResult(req.body);
 
+        if (!errors.isEmpty()) {
+            try {
+                res.json({ errors: errors.array() })
+            } catch (err) {
+                console.log(err)
+                next(err);
+            }
+        }
+
         try {
+            console.log("in try block")
             const post = new Post({
                 title: req.body.title, 
                 content: req.body.content, 

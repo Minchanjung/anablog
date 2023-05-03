@@ -15,7 +15,6 @@ const Home = (props) => {
     return (
         <div>
             <h1>this is the home page</h1>
-            <h1>{props.user}</h1>
         </div>
     )
 }

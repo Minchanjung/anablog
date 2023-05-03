@@ -25,7 +25,6 @@ exports.get_single_user = async (req, res, next) => {
 }
 
 exports.log_in = (req, res) => {
-    console.log(req.body)
     passport.authenticate("local", { session: false }, (err, user) => {
         if (err || !user) {
             return res.status(401).json({
@@ -111,31 +110,6 @@ exports.sign_up = [
                 res.status(400).json({error: "new user req failed"});
             }
          
-
-            /*User.create(
-                { username: req.body.username, password: hash }, 
-                (err, user) => {
-                    if (err) return next(err);
-
-                    jwt.sign(
-                        { _id: user._id, username: user.username }, 
-                        process.env.SECRET, 
-                        { expiresIn: "5m" }, 
-                        (err, token) => {
-                            if (err) return next(err);
-
-                            return res.status(200).json({
-                                token, 
-                                user: {
-                                    _id: user._id, 
-                                    username: user.username,
-                                }, 
-                                message: "SignUp Succesful",
-                            })
-                        }
-                    )
-                }
-            )*/
         })
 
     }
