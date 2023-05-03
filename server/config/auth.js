@@ -8,12 +8,8 @@ const extractJWT = passportJWT.ExtractJwt;
 
 const User = require("../models/User");
 
-console.log("running auth file now");
-
 passport.use(
     new LocalStrategy(async(username, password, done) => {
-        console.log(username);
-        console.log(password);
         try {
             const user = await User.findOne({ username: username });
             if (!user) {

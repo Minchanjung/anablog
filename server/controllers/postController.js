@@ -6,7 +6,7 @@ const Post = require("../models/Post");
 // gets all posts
 exports.get_posts = async (req, res) => {
     try {    
-        const posts = await(Post.find({}).populate("author").sort({ timeStamp: descending }).exec());
+        const posts = await(Post.find({}).populate("author").sort({ timeStamp: "descending" }).exec());
         return res.json(posts);
     } catch (err) {
         return res.status(400).json(err);
