@@ -36,7 +36,7 @@ exports.log_in = (req, res) => {
         jwt.sign(
             { _id: user._id, username: user.username }, 
             process.env.SECRET, 
-            { expiresIn: "10m" }, 
+            { expiresIn: "1d" }, 
             (err, token) => {
                 if (err) return res.status(400).json(err);
                 res.json({

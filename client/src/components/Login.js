@@ -18,7 +18,7 @@ const Login = (props) => {
         }).then((res) => {
             console.log(res)
             localStorage.setItem("user", JSON.stringify(res.data));
-            props.setUser(res.data)
+            props.setUser(res.data.user);
             navigate("/");
         }).catch((err) => {
             console.log(err)

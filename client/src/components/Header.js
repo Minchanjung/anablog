@@ -25,7 +25,7 @@ const Header = (props) => {
                     <div>Profile Picture</div>
                     <div className="dropdown">
                         <NavLink to="/create-post">Create New Post</NavLink>
-                        <div>Dashboard</div>
+                        <NavLink to="/dashboard">Dashboard</NavLink>
                         <div onClick={logOut}>Sign Out</div>
                     </div>
                 </div>

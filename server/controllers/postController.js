@@ -74,6 +74,80 @@ exports.get_single_post = async (req, res) => {
     }
 };
 
+//publish post
+exports.publish_post = [
+    (req, res, next) => {
+        jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+            if (err) return res.status(400).json(err);
+
+            req.authData = authData;
+            next();
+        })
+    }, 
+
+    async (req, res) => {
+        const errors = validationResult(req.body);
+
+        if (!errors.isEmpty()) {
+            try {
+                res.json({ errors: errors.array() })
+            } catch (err) {
+                next(err);
+            }
+        }
+
+        try {
+            const post = await Post.findOneAndUpdate(
+                {_id: req.params.id}, 
+                {published: true}, 
+                {useFindAndModify: false, new: true}
+            ).populate("author").exec()
+            res.json(post);
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+]
+
+//unpublish post
+exports.unpublish_post = [
+    (req, res, next) => {
+        jwt.verify(req.token, process.env.SECRET, (err, authData) => {
+            if (err) return res.status(400).json(err);
+
+            req.authData = authData;
+            next();
+        })
+    }, 
+
+    async (req, res) => {
+        const errors = validationResult(req.body);
+
+        if (!errors.isEmpty()) {
+            try {
+                res.json({ errors: errors.array() })
+            } catch (err) {
+                next(err);
+            }
+        }
+
+        try {
+            const post = await Post.findOneAndUpdate(
+                {_id: req.params.id}, 
+                {published: false}, 
+                {useFindAndModify: false, new: true}
+            ).populate("author").exec()
+            res.json(post);
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+]
+
 exports.edit_post = [
     (req, res, next) => {
         jwt.verify(req.token, process.env.SECRET, (err, authData) => {

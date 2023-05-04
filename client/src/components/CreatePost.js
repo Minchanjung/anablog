@@ -17,9 +17,6 @@ const CreatePost = (props) => {
         },
     };
 
-    useEffect(() => {
-    }, []);
-
     const formHandler = (e) => {
         e.preventDefault()
         console.log(headers)
@@ -31,7 +28,7 @@ const CreatePost = (props) => {
             published: false,
         }, headers).then((res) => {
             console.log(res);
-            //navigate("/dashboard")
+            navigate("/dashboard")
         }).catch((err) => {
             console.log(err)
         })
@@ -58,6 +55,20 @@ const CreatePost = (props) => {
                 <input name="thumbnail" type="text" onChange={(e) => setThumbnail(e.target.value)} placeholder="Must be a Url ie. http://image.com"/>
                 <Editor 
                     apiKey={process.env.REACT_APP_TINYMCE_APIKEY}
+                    init={{
+                        height: 400,
+                        menubar: false,
+                        /*plugins: [
+                            "advlist autolink lists link image",
+                            "charmap print preview anchor help",
+                            "searchreplace visualblocks code",
+                            "insertdatetime media table paste wordcount",
+                        ],
+                        toolbar:
+                            // prettier-ignore
+                            "undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help",*/
+                    }}
+                    value={textArea}
                     onEditorChange={(content, editor) => {
                         setTextArea(content)
                         }}

@@ -18,4 +18,8 @@ router.put("/:id/edit", verifyToken, postController.edit_post);
 //delete a post 
 router.delete("/:id/delete", verifyToken, postController.delete_post);
 
+router.post("/:id/publish", verifyToken, postController.publish_post);
+
+router.post("/:id/unpublish", verifyToken, postController.unpublish_post)
+
 module.exports = router;
