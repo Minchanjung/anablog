@@ -13,33 +13,50 @@ const Header = (props) => {
     }
 
     return (
-        <div>
-            <div className="leftSideContainer">
-                <h1 className="logo">Anablog</h1>
-                <ul>
-                    <NavLink to="/">Home</NavLink>
-                </ul>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="align-items-center">
+                <h1 className="navbar-brand mx-4">Anablog</h1>
             </div>
-            {localStorage.getItem("user") ? (
-                <div className="rightSideContainer">
-                    <div>Profile Picture</div>
-                    <div className="dropdown">
-                        <NavLink to="/create-post">Create New Post</NavLink>
-                        <NavLink to="/dashboard">Dashboard</NavLink>
-                        <div onClick={logOut}>Sign Out</div>
-                    </div>
-                </div>
-            ) : (
-                <div className="rightSideContainer">
-                    <div className="logInButton">
-                        <NavLink to="/log-in">Log In</NavLink>
-                    </div>
-                    <div className="SignUpButton">
-                        <NavLink to="/sign-up">Sign Up</NavLink>
-                    </div>
-                </div>
-            )}
-        </div>
+            {/*<ul className="navbar-nav">
+                
+            </ul>*/}
+            <button className="navbar-toggler mx-4" type="button" data-toggle="collapse" data-target="#navBarCollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="navbar toggle">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse mx-4 justify-content-end" id="navBarCollapse">
+                {localStorage.getItem("user") ? (
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/">Home</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/create-post">Create New Post</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <div className="nav-link" onClick={logOut}>Sign Out</div>
+                        </li>
+                    </ul>
+                    
+                ) : (
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/">Home</NavLink>    
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/log-in">Log In</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/sign-up">Sign Up</NavLink>
+                        </li>
+                    </ul>
+                )}
+            </div>
+            
+            
+        </nav>
     )
 }
 

@@ -17,6 +17,8 @@ const Dashboard = (props) => {
     useEffect(() => {
         axios.get("http://localhost:1234/api/posts").then((res) => {
             setMyPosts(res.data.filter((post) => post.author._id === JSON.parse(localStorage.getItem("user")).user._id))
+        }).catch((err) => {
+            console.log(err);
         })
     }, [])
 

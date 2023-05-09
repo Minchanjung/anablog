@@ -5,10 +5,9 @@ const Comment = require("../models/Comment");
 
 exports.getComments = async (req, res) => {
     try {    
-        const comments = await(Comment.find({}).sort({ timeStamp: descending }).populate("author").exec());
-        let filteredComments = comments.filter((comment) => {
-            comment.postId === req.params.post_id;
-        })
+        const comments = await(Comment.find({}).sort({ timeStamp: "descending" }).populate("author").exec());
+        let filteredComments = comments.filter((comment) => comment.postId == req.params.post_id)
+        console.log(filteredComments);
         return res.json(filteredComments);
     } catch (err) {
         return res.status(400).json(err);
@@ -24,8 +23,8 @@ exports.createComment = [
     async (req, res) => {
         try {
             const comment = new Comment({
-                comment: req.body.comment, 
-                author: req.authData._id, 
+                comment: req.body.content, 
+                author: req.body.author, 
                 postId: req.params.post_id
             })
 

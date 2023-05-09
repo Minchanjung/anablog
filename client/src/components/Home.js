@@ -10,6 +10,8 @@ const Home = (props) => {
     useEffect(() => {
         axios.get("http://localhost:1234/api/posts").then((res) => {
             setPublished(res.data.filter((post) => post.published === true))
+        }).catch((err) => {
+            console.log(err);
         })
     }, [])
 

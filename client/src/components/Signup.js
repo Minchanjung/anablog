@@ -1,9 +1,11 @@
 import React from "react"
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
 
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,7 +18,7 @@ const Signup = (props) => {
             confirmPassword, 
         }).then((result) => {
             console.log(result);
-            props.history.push("/log-in");
+            navigate("/log-in");
         }).catch((err) => {
             console.log(err)
         })

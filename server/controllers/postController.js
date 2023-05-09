@@ -238,11 +238,10 @@ exports.create_post = [
         }
 
         try {
-            console.log("in try block")
             const post = new Post({
                 title: req.body.title, 
                 content: req.body.content, 
-                thumbnail: req.body.imgUrl, 
+                thumbnail: req.body.thumbnail, 
                 published: false, 
                 author: req.authData._id, 
                 timeStamp: Date.now(), 
