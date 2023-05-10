@@ -45,14 +45,17 @@ const Dashboard = (props) => {
     }
     
     return (
-        <div>
-            {myPosts.map(post => (
-                <div>
-                    <h1>{post.title}</h1>
-                    {post.published ? <button onClick={() => {unpublishPost(post._id)}}>unpublish</button> : <button onClick={() => {publishPost(post._id)}}>publish</button>}
-                    <div>edit post</div>
-                </div>
-            ))}
+        <div className="container">
+            <div className="row my-5">
+                {myPosts.map(post => (
+                    <div className="col-sm border rounded m-2">
+                        <img className="img-fluid" src={post.thumbnail} alt="thumbnail"></img>
+                        <h2>{post.title}</h2>
+                        {post.published ? <button className="btn btn-dark" onClick={() => {unpublishPost(post._id)}}>unpublish</button> : <button className="btn btn-dark" onClick={() => {publishPost(post._id)}}>publish</button>}
+                        <button classname="btn btn-dark">Delete Post</button>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

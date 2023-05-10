@@ -20,7 +20,7 @@ const Header = (props) => {
             {/*<ul className="navbar-nav">
                 
             </ul>*/}
-            <button className="navbar-toggler mx-4" type="button" data-toggle="collapse" data-target="#navBarCollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="navbar toggle">
+            <button className="navbar-toggler mx-4" type="button" data-bs-toggle="collapse" data-bs-target="#navBarCollapse" aria-controls="navBarCollapse" aria-expanded="false" aria-label="navbar toggle">
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse mx-4 justify-content-end" id="navBarCollapse">
@@ -35,7 +35,7 @@ const Header = (props) => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/dashboard">Dashboard</NavLink>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item" style={{cursor: "pointer"}}>
                             <div className="nav-link" onClick={logOut}>Sign Out</div>
                         </li>
                     </ul>
