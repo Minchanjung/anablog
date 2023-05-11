@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +34,7 @@ const CreatePost = (props) => {
         })
     }
 
-    const parseEditorData = (content, editor) => {
+    /*const parseEditorData = (content, editor) => {
         const { targetElm } = editor;
         const { name } = targetElm;
     
@@ -44,7 +44,7 @@ const CreatePost = (props) => {
                 value: content,
             },
         };
-    };
+    };*/
 
     return (
         <div className="container">

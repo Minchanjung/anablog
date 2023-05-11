@@ -1,4 +1,5 @@
 import React from "react";
+import { DateTime } from "luxon"
 
 const Comment = (props) => {
 
@@ -7,9 +8,17 @@ const Comment = (props) => {
     const time = props.time
 
     return (
-        <div>
-            <h1>i am in comments</h1>
-            {comment}
+        <div className="container w-50">
+            <div className="row">
+                <h5 className="col">{user}</h5>
+            </div>
+            <div className="row">
+                <div className="col">{DateTime.fromISO(time.toLocaleString()).toFormat("LLL dd yyyy")}</div>
+            </div>
+            <div className="row">
+                <div className="col">{comment}</div>
+            </div>
+            <div className="border my-5"></div>
         </div>
     )
 }

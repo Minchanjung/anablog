@@ -25,16 +25,27 @@ const Signup = (props) => {
     }
 
     return (
-        <div>
-            <form onSubmit={submitHandler}>
-                <label htmlFor="username">Username:</label>
-                <input name="username" type="text" onChange={(e) => {setUsername(e.target.value)}} required></input>
-                <label htmlFor="password">Password:</label>
-                <input name="password" type="text" onChange={(e) => {setPassword(e.target.value)}} required></input>
-                <label htmlFor="passwordConfirm">Confirm Password:</label>
-                <input name="passwordConfirm" type="text" onChange={(e) => {setConfirmPassword(e.target.value)}} required></input>
-                <button type="submit">Sign Up</button>
-            </form>
+        <div className="container border my-5 p-5 d-flex flex-column justify-content-center align-items-center">
+            <div className="row">
+                <h3 className="col">Sign Up</h3>
+            </div>
+            <div className="row">
+                <form onSubmit={submitHandler}>
+                    <div className="form-group">
+                        <label htmlFor="username">Username:</label>
+                        <input className="form-control" name="username" type="text" onChange={(e) => {setUsername(e.target.value)}} required></input>
+                    </div>
+                    <div className="form-group my-4">
+                        <label htmlFor="password">Password:</label>
+                        <input className="form-control" name="password" type="text" onChange={(e) => {setPassword(e.target.value)}} required></input>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="passwordConfirm">Confirm Password:</label>
+                        <input className="form-control" name="passwordConfirm" type="text" onChange={(e) => {setConfirmPassword(e.target.value)}} required></input>
+                    </div>
+                    <button className="btn btn-dark my-4" type="submit">Sign Up</button>
+                </form>
+            </div>
         </div>
     )
 }

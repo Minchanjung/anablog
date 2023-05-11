@@ -1,12 +1,10 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState } from "react";
 import Home from './components/Home';
 import Post from './components/Post';
 import Login from './components/Login';
 import Header from './components/Header';
-import Footer from './components/Footer';
 import Signup from './components/Signup';
 import CreatePost from './components/CreatePost';
 import Dashboard from './components/Dashboard';
@@ -27,7 +25,6 @@ function App(props) {
           <Route exact path="/create-post" element={<CreatePost user={user}/>}/>
           <Route exact path="/dashboard" element={<Dashboard />}/>
         </Routes>
-        <Footer/>
       </Router>
     </div>
   );
